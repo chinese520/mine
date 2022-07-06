@@ -1,0 +1,17 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: feignservice # ????
+  cloud:
+    nacos:
+      server-addr: localhost:8848 # Nacos??
+      config:
+        file-extension: yaml # ?????
+
+feign:
+  circuitbreaker:
+    enabled: true
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: localhost

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>备忘录</title>
+    <link rel="stylesheet" href="/css/index.css">
+
+    <style>
+        .left_side li.show_ctive {
+            background-color: rgb(105, 104, 104);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 顶部导航栏 -->
+        <div class="tap">
+            <h1>仓库后台管理</h1>
+        </div>
+        <!-- 左右div自动对齐 -->
+        <div class="box_flex">
+            <!-- 左边导航栏 -->
+            <div class="left_side">
+                <ul>
+                    <router-link to="/" tag="a">
+                        <li class="selection">备忘录</li>
+                    </router-link>
+                    <router-link to="/dataset" tag="a">
+                        <li class="selection">数据管理</li>
+                    </router-link>
+                    <router-link to="/recycle" tag="a">
+                        <li class="selection">回收站</li>
+                    </router-link>
+                </ul>
+            </div>
+            <!-- 右边显示内容 -->
+            <div class="right_side">
+                <!-- 路由出口 -->
+                <!-- 路由匹配到的组件将渲染在这里 -->
+                <router-view></router-view>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 组件部分 -->
+    <!-- 主页部分 -->
+    <template id="index">
+        <div id="index_container">
+            <div class="box_index" :class="{showTime:isShowTime}">
+                <!-- 时钟部分 -->
+                <div class="box_time">
+                    <!-- <h1>主页</h1>
+                    <p>{{msg}}</p> -->
+                    <h3>当前时间：</h3>
+                    <h1>{{clock}}</h1>
+                    <h3>{{date}}</h3>
+                    <!-- <input type="datetime-local" v-model="text"> -->
+                    <button type="button" @click="addEvent">添加事件</button>
+                </div>
+                <!-- 所有事件展示 -->
+                <div class="box_all" v-if="iList.length > 0">
+                    <!-- 所有时间遍历处 -->
+                    <ul :class="{showTime:isShowDetail}">
+                        <li v-for="(list,index) in iList" v-show="startIndex<=index && index < endIndex">
+                            <a href="javascript:;" @click="showDetail(index)">
+                                <span>{{list.name}}</span>
+                                <span>{{list.date}}</span>
+                            </a>
+                            <a href="javascript:;" @click="removeEvent(index)"
+                             style="float: right;margin-right: 12%;">×</a>
+                        </li>
+                        <p class="page" v-show="iList.length>10">
+                            <a href="javascript:;" @click="prevPage">上一页</a>
+                            <span style="color: rgb(202, 202, 202);">第&nbsp;{{endIndex/10}}&nbsp;页</span>
+                            <a href="javascript:;" @click="nextPage">下一页</a>
+                        </p>
+                    </ul>
+                    <!-- 事件详情 -->
+                    <div :class="{showTime:!isShowDetail}">
+                        <p style="text-align: right;margin: 0;">
+                            <a href="javascript:;" style="margin: 2%;font-size: 15px;" @click="closeDetail">×</a>
+                        </p>
+                        <p>事件名：{{detail.name}}</p>
+                        <p>时间：{{detail.date}}</p>
+                        <p>详情：<br>
+                            {{detail.remark}}
+                        </p>
+        
+                    </div>
+                </div>
+            </div>
+            <div class="box_event" :class="{showTime:!isShowTime}">
+                <!-- <h3>事件增加表</h3> -->
+                <p>
+                    事件名：
+                    <input type="text" style="width: 100%;" v-model="iName" @change="setLength">
+                </p>
+                <p>时间：</p>
+                <p><input type="date" v-model="iDate"><input type="time" v-model="iTime"></p>
+                <p>备注：</p>
+                <textarea v-model="iRemark" style="width: 100%;" rows="7"></textarea>
+                
+                <p style="text-align: center;">
+                    <button @click="setEvent">确认</button>
+                    <button @click="addEvent">取消</button>
+                </p>
+            </div>
+        </div>
+        
+    </template>
+    <!-- 数据管理 -->
+    <template id="dataset">
+        <iframe frameborder="0"noresize="noresize" style="background: transparent; width: 100%;height: 100%;"
+            src="http://127.0.0.1:8090/right_page/dataset.html" frameborder="0">
+        </iframe>
+    </template>
+    <!-- 记事本模块 -->
+    <template id="recycle">
+        
+    </template>
+
+    <!-- 导入自己的js -->
+    <script src="/js/vue.js"></script>
+    <script src="/js/axios.js"></script>
+    <script src="/js/vue-router.js"></script>
+    <script src="/js/index.js"></script>
+    <script>
+        let navList=["/","/dataset","/recycle"];
+        var url = window.location.href;
+        var pathname = window.location.pathname;
+        let a=url.split("#")[1];
+        var val=0;
+
+        for(let i=0;i<navList.length;i++){
+            if(a==navList[i]){
+                val=i;
+                break;
+            }
+        }
+        // 目标： 默认显示一个 当前的样式
+        // 点击导航，实现切换
+        // key 表示的当前显示的是第几个
+
+        (function (key) {
+            key=val;
+            console.log("key:"+key);
+            // 获取所有的导航
+            var navs = document.querySelectorAll(".left_side li");
+            // 遍历 给导航 绑定事件，并且添加当前样式
+            // console.log(navs[0])
+            for (var i = 0; i < navs.length; i++) {
+                // 如果是用户指定的当前样式
+                if (key == i) {
+                    navs[i].classList.add('show_ctive');
+                    // 拿到要显示内容section的id
+                    // var secId = navs[i].dataset['cont'];
+                    // 获取对应的section标签
+                    // document.querySelector('#' + secId).style.display = 'block';
+                }
+                // 给每一个导航绑定点击事件
+                navs[i].onclick = function () {
+                    // 排他
+                    // 之前有active样式的清除, 之前显示的section 隐藏
+                    var currentNav = document.querySelector('.show_ctive');
+                    // 获取对应的内容区域 ，让其隐藏
+                    // var currentId = currentNav.dataset['cont'];
+                    // 去掉导航的active 样式
+                    currentNav.classList.remove('show_ctive');
+                    // 对应的内容区域
+                    // document.querySelector('#' + currentId).style.display = 'none';
+
+                    // 突出显示自己 导航添加样式  对应的section 显示
+                    // 给自己添加active样式
+                    this.classList.add('show_ctive');
+                    // 对应的section模块显示出来
+                    // var myId = this.dataset['cont'];
+                    // document.querySelector('#' + myId).style.display = 'block';
+                }
+            }
+
+        })(0);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,121 @@
+/* 全局页面布局 */
+body{
+    background-image: url("../images/原神-背景.jpg");
+    background-size: 100% 100%;
+}
+.tap{
+    text-align: center;
+    background: none;
+    box-shadow: 1px 1px 1px 1px rgb(219, 219, 219);
+    color: white;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+.tap *{
+    margin: 0;
+}
+.box_flex{
+    display: flex;
+}
+.left_side{
+    /* background: black; */
+    box-shadow: 1px 1px 1px 1px rgb(219, 219, 219);
+    font-size: 20px;
+    /* float: left; */
+    width: 20%;
+    height: 720px;
+    position: relative;
+    /* border: 1px yellow solid; */
+}
+.left_side ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+}
+.left_side ul a{
+    color: white;
+    text-decoration: none;
+}
+.left_side li{
+    padding: 3px;
+}
+.left_side li:hover{
+    background: rgb(128, 128, 128);
+}
+.right_side{
+    /* float: left; */
+    width: 80%;
+    /* height: 620px; */
+    color: white;
+    text-align: center;
+    box-shadow: 1px 1px 1px 1px rgb(219, 219, 219);
+    /* border: 1px greenyellow solid; */
+}
+a{
+    color: white;
+    text-decoration: none;
+}
+/* 全局页面布局 */
+
+/*主页样式  */
+#index_container{
+    margin: auto;
+    margin-top: 50px;
+    width: 70%;
+    /* border: 1px chartreuse solid; */
+
+}
+.box_index{
+    display: flex
+}
+.box_index .box_time{
+    width: 60%;
+    padding: 10px;
+}
+.box_index .box_all{
+    padding: 3px;
+    text-align: left;
+    border: 1px white solid;
+    font-size: 11px;
+    width: 40%;
+}
+.box_index .box_all ul{
+    margin: 0;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.box_index .box_all ul li span{
+    margin-right: 5px;
+}
+.box_index .box_all ul .page{
+    text-align: center;
+}
+.box_index .box_all ul .page a{
+    margin: 12px;
+}
+.box_event{
+    background-color: white;
+    color: rgb(206, 206, 206);
+    text-align: left;
+    padding: 2px;
+    padding-left: 12px;
+    padding-right: 15px;
+}
+
+.showTime{
+    display: none;
+}
+/*主页样式  */
+
+/* 天气预报 */
+
+/* 天气预报 */
+
+/* 记事本 */
+
+
+/* 轮播图 */
+
+/* 记事本 */

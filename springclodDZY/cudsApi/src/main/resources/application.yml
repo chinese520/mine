@@ -1,0 +1,37 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: cudsservice # 服务名称
+  cloud:
+    nacos:
+      #      discovery:
+      #        enabled: true
+      #        service: nocas
+      server-addr: localhost:8848 # Nacos地址
+      config:
+        file-extension: yaml # 文件后缀名
+
+  datasource:
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cloud-data?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+  cache:
+    redis:
+      #统一设置缓存有效时间为3分钟，单位为毫秒
+      time-to-live: 300000
+  redis:
+    #Redis服务器地址
+    host: 127.0.0.1
+    #Redis服务器连接端口
+    port: 6379
+    #Redis服务器连接密码（默认为空）
+    password:
+
+
+mybatis:
+#  type-aliases-package: cn.itcast.user.pojo
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.chen2022.cudsapi.dao

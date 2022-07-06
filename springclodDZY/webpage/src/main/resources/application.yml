@@ -1,0 +1,28 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: websevice
+  cloud:
+    nacos:
+      server-addr: localhost:8848 # Nacos??
+      config:
+        file-extension: yaml # ?????
+
+#??????
+#  thymeleaf:
+#    cache: false
+#    encoding: UTF-8
+#    mode: HTML5
+#    prefix: classpath:/resources/templates/
+#    suffix: .html
+
+#??????
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
+    static-path-pattern: /**
+  web:
+    resources:
+      static-locations: classpath:/templates/,classpath:/static/
